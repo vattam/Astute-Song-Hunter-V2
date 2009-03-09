@@ -1,16 +1,9 @@
 import wave, math
 import audioop as Audio
+import line
 
-def normalize(L,I):
-  M = []
-  j = 0
-  for i in I:
-    M.append((i-L[j])**2)
-    j += 1
-  return (sum(M)/len(M))**-1
-
-Song1 = "../song/nin_1.wav"
-Song2 = "../song/a.wav"
+Song1 = "tunes/shamma.wav"
+Song2 = "songs/milana1.wav"
 
 Song = wave.open(Song1,'rb')
 Frame_Rate = Song.getframerate()
@@ -48,11 +41,16 @@ while len(Stream):
   Stream = Song.readframes(Buffer)
 Song.close()
 
-a = normalize(Max1,Max2)
-b = normalize(Min1,Min2)
-if abs(a-b) < 0.00005:
+a = line.rms(Max1,Max2)
+b = line.rms(Min2,Min1)
+print a,b
+
+diff = int(abs(a-b)*(10**5))
+print diff
+
+if diff < 5:
   print "The songs ",Song1," and ",Song2," are alomst same."
-elif abs(a-b) >= 0.0001:
+elif diff >= 10:
   print "The songs ",Song1," and ",Song2," are different."
 else:
   print "The songs ",Song1," and ",Song2," are some what similar."
