@@ -23,4 +23,3 @@ def rms(L,I):
     j += 1
 #  return math.sqrt(sum(M)/len(M))
   return (sum(M)/len(M))**(-1)
-
