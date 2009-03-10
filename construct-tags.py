@@ -13,7 +13,8 @@ class ConstructTags(object):
     def __init__(SongSnack, SongWave):
         self.SongSnack = SongSnack
         self.SongWave = SongWave
-    
+        (self.length, self.sampling_rate, self.max_val, self.min_val, self.encoding,
+            self.channels, self.fileFormat, self.headerSize = self.SongSnack.info()
     
     def get_minmax_tag(stream, num_frames, num_channels):
         framebuffer = num_frames/256
@@ -31,23 +32,24 @@ class ConstructTags(object):
         return min_list, max_list
 
 
-    def get_tags():
-        length, sampling_rate, max_val, min_val, encoding, channels, fileFormat, headerSize = self.SongSnack.info()
-        tag_length = sampling_rate * 20
-        num_tags = (length / (sampling_rate * 5))
+    def get_tags():        
+        tag_length = self.sampling_rate * 20
+        num_tags = (self.length / (self.sampling_rate * 5))
         dbpowerspectrum_tags_list = []
         max_tags_list = []
         min_tags_list = []
         
         for i in range (num_tags):
-            tag_start = i * (sampling_rate * 5)
+            tag_start = i * (self.sampling_rate * 5)
             tag_end = tag_start + tag_length
-            if  tag_end > length:
-                tag_end = length - 1
+            if  tag_end > self.length:
+                tag_end = self.length - 1
             dbpowerspectrum_tags_list.append(self.SongSnack.dBPowerSpectrum(fftlength=16384,
                 start=tag_start, end=tag_end))
             stream = Song.readframes(tag_end - tag_start)
             min_list, max_list = self.get_minmax_tag(stream, num_frames, num_channels)
+            min_tags_list.append(min_list)
+            max_tags_list.append(max_list)
 
         return (dbpowerspectrum_tags_list, max_tags_list, min_tags_list)
 
