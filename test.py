@@ -1,4 +1,4 @@
-import line
+import line,os
 import tkSnack, Tkinter
 
 def HNL(c):
@@ -21,18 +21,20 @@ def HNL(c):
       i += 1
     return x
 
-def main():
+def match(Tune):
     root = Tkinter.Tk()
     tkSnack.initializeSnack(root)
-    Snd1 = tkSnack.Sound(load="songs/Roja.wav")
-    Snd2 = tkSnack.Sound(load="tunes/nin_2.wav")
+    Snd1 = tkSnack.Sound(load=Tune)
     Y1 = Snd1.dBPowerSpectrum(fftlength=16384)
     Ang1 = line.normalize(Y1)
-    
-    Y2 = Snd2.dBPowerSpectrum(fftlength=16384)
-    Ang2 = line.normalize(Y2)
-    print line.angle(Ang1, Ang2)
+    Snd2 = tkSnack.Sound()
+    M = []
 
+    for Tag in os.listdir("songs"):
+      Snd2.read("songs/"+Tag)
+      Y2 = Snd2.dBPowerSpectrum(fftlength=16384)
+      Ang2 = line.normalize(Y2)
+      if line.angle(Ang1, Ang2) < 5e-03:
+        M.append(Tag)
+    return M
 
-if __name__ == "__main__":
-    main()
