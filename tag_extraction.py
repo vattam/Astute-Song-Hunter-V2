@@ -55,7 +55,7 @@ class ConstructTags(tkSnack.Sound):
 def main():
     root = Tkinter.Tk()
     tkSnack.initializeSnack(root)
-    Song_Name = "songs/milana1.mp3"
+    Song_Name = "songs1/Ninindale.mp3"
     Song = ConstructTags()
     t1 = time.time()
     Song.load(Song_Name)
