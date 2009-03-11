@@ -1,6 +1,5 @@
 import tkSnack, Tkinter
 import line
-import math
 import wave
 import os
 import audioop as Audio

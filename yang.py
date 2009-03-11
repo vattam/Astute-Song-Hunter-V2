@@ -41,6 +41,8 @@ while len(Stream):
   Stream = Song.readframes(Buffer)
 Song.close()
 
+print Max1
+print Min1
 a = line.rms(Max1,Max2)
 b = line.rms(Min2,Min1)
 print a,b

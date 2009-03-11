@@ -7,7 +7,7 @@ def normalize(L):
   for i in I:
     IL.append(i*L[i-1])
   b = (len(I)*sum(IL) - sum(I)*sum(L)) / (len(I)*sum(II) - sum(I)*sum(I))
-  a = (sum(L) - b*sum(I)) / len(I)
+#  a = (sum(L) - b*sum(I)) / len(I)
   return b
 
 def angle(m1,m2):
