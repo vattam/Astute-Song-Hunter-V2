@@ -1,19 +1,23 @@
 import tkSnack, Tkinter
 import line
-import os, wave, pickle
+import os, wave
+import pickle
 import audioop as Audio
+
 
 class ConstructTags(tkSnack.Sound):
     def __init__(self, Song=None):
         tkSnack.Sound.__init__(self,load=Song)
-        self.tag_length = 22050 * 20
-        self.Length = 0
-        self.sampling_rate = 22050
+        self.Length = None
+        self.sampling_rate = None
+        self.hum_length = 20  #seconds
+        self.tag_length = 22050 * self.hum_length
 
     def load(self,Song):
         self.read(Song)
-#        self.configure(channels=1, frequency=22050, fileformat='WAV', encoding='Lin8')
+        self.configure(channels=1)#, frequency=22050, fileformat='WAV', encoding='Lin8')
         self.Length = self.length(unit="SAMPLES")
+        self.sampling_rate = self.cget("frequency")
         self.write("temp.wav")
         Temp = wave.open("temp.wav","rb")
         self.Stream = Temp.readframes(self.Length)
@@ -52,21 +56,23 @@ class ConstructTags(tkSnack.Sound):
         
         return (dbpowerspectrum_tags_list, max_tags_list, min_tags_list)
 
+
 def main():
-    Tag_File = open("tags.lst","w")
+    Tag_File = open("tags.db","w")
     Tags=[]
     root = Tkinter.Tk()
     tkSnack.initializeSnack(root)
     Song = ConstructTags()
     
-    for Song_Name in os.listdir("songs1"):
-        Song_Name = "songs1/"+Song_Name
+    for Song_Name in os.listdir("../songs"):
+        Song_Name = "../songs/"+Song_Name
         Song.load(Song_Name)
         dbspectrum,max_tags_list,min_tags_list = Song.get_tags()
         Tags.append((Song_Name,dbspectrum,(max_tags_list,min_tags_list)))
         print Song_Name
     
     pickle.dump(Tags,Tag_File)
+
 
 if __name__ == "__main__":
     main()
