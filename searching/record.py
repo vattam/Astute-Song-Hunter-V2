@@ -29,7 +29,7 @@ class Tag:
 
 root = Tkinter.Tk()
 tkSnack.initializeSnack(root)
-MySound = tkSnack.Sound()#load="tunes/nin_2.wav")
+MySound = tkSnack.Sound(load="../tunes/nin_2.wav")
 T = Tag()
 
 def record():
