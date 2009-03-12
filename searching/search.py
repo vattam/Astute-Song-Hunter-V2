@@ -1,6 +1,7 @@
-import math,pickle
+import math
+import pickle
 
-File = open("tag.lst","r")
+File = open("tags.db","r")
 Tag_List = pickle.load(File)
 File.close()
 Min_Threshold = (5e-03,5)
@@ -34,9 +35,9 @@ def search_by_max_min(Maxima,Minima):
   Match = []
   for Tag in Tag_List:
     Min = False
-    for (Max,Min) in Tag[2]:
-      a = rms(Maxima,Max)
-      b = rms(Mininma,Min)
+    for Var in Tag[2]:
+      a = rms(Maxima,Var[0])
+      b = rms(Minima,Var[1])
       if int(abs(a-b)*(10**5)) < Min_Threshold[1]:
         Min = True
         break

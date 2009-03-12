@@ -1,7 +1,7 @@
 import tkSnack, Tkinter
 import wave,audioop
-import os, pickle
-import search
+import os
+from search import *
 
 class Tag:
   def __init__(self):
@@ -51,10 +51,11 @@ def play():
     MySound.play()
 
 def search():
-    print "under construction"
-    Match1 = search.search_by_regression(Tag.Slope)
-    Match2 = search.search_by_max_min(Tag.Max_List, Tag.Min_List)
+    Match1 = search_by_regression(T.Slope)
+    Match2 = search_by_max_min(T.Max_List, T.Min_List)
     print "The relatively matched songs are : "
+    print Match1
+    print Match2
     for i in Match1:
       if i in Match2:
         print i
