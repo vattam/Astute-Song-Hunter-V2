@@ -52,7 +52,7 @@ class Tag:
 
 root = Tkinter.Tk()
 tkSnack.initializeSnack(root)
-MySound = tkSnack.Sound(load="../tunes/nin_2.wav")
+MySound = tkSnack.Sound(load="../tunes/me_roja.wav")
 T = Tag()
 get_data()
 t = time.time()

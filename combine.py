@@ -26,7 +26,7 @@ while len(Stream):
 Song.close()
 Time += time.time()-t1
 
-print "The relative match for '",Tune,"' are : "
+print "\n\nThe relative match for '",Tune,"' are : \n"
 Match1 = []
 for Tag in os.listdir("songs"):
   Song = wave.open("songs/"+Tag,'rb')
@@ -60,8 +60,10 @@ import test
 t,Match2 = test.match(Tune)
 #print "Songs using regression line : ",Match2
 #print "Songs using yang : ",Match1
+Match1.sort()
+Match2.sort()
 for i in Match1:
   if i in Match2:
     print i
 
-print "Time to search is : ",Time+t,"seconds."
+print "\n\nTime to search is : ",Time+t,"seconds."
