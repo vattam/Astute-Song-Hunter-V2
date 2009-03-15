@@ -26,13 +26,12 @@ def match(Tune):
     tkSnack.initializeSnack(root)
     Time = 0
 #    t1 = time.time()
-    stmnt1 = """\
+
     Snd1 = tkSnack.Sound(load=Tune)
     Y1 = Snd1.dBPowerSpectrum(fftlength=16384)
     Ang1 = line.normalize(Y1)
-    """
-    t = timeit.Timer(stmt=stmnt1)
-    Time += t.timeit()
+
+
 #    t += time.time()-t1
     Snd2 = tkSnack.Sound()
     M = []
@@ -42,12 +41,9 @@ def match(Tune):
       Y2 = Snd2.dBPowerSpectrum(fftlength=16384)
       Ang2 = line.normalize(Y2)
 #      t1 = time.time()
-      stmnt2 = """\
       if line.angle(Ang1, Ang2) < 5e-03:
         M.append(Tag)
-      """
-      t = timeit.Timer(stmt=stmnt2)
-      Time += t.timeit()
+
 #      t += time.time()-t1
-    return Time, M
+    return M
 
