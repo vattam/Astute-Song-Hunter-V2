@@ -2,6 +2,7 @@ import wave, math
 import audioop as Audio
 import line, time
 import os,sys
+import timeit
 
 def main(argv):
   Tune = "tunes/"+argv

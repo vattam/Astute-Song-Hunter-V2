@@ -1,3 +1,5 @@
+import timeit
+s="""\
 import wave, math
 import audioop as Audio
 import line, time
@@ -17,8 +19,6 @@ Max1 = []
 Stream = Song.readframes(Buffer)
 while len(Stream):
   Stream = Audio.lin2lin(Stream,2,1)
-  if Num_Channels == 2:
-    Stream = Audio.tomono(Stream,1,1,-1)
   a,b = Audio.minmax(Stream,1)
   Min1.append(a)
   Max1.append(b)
@@ -39,8 +39,6 @@ for Tag in os.listdir("songs"):
   Stream = Song.readframes(Buffer)
   while len(Stream):
     Stream = Audio.lin2lin(Stream,2,1)
-    if Num_Channels == 2:
-      Stream = Audio.tomono(Stream,1,1,-1)
     a,b = Audio.minmax(Stream,1)
     Min2.append(a)
     Max2.append(b)
@@ -65,5 +63,8 @@ Match2.sort()
 for i in Match1:
   if i in Match2:
     print i
+"""
+t = timeit.Timer(stmt=s)
+Time = t.timeit()
 
-print "\n\nTime to search is : ",Time+t,"seconds."
+print "\n\nTime to search is : ",Time,"seconds."
