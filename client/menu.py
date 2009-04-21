@@ -1,43 +1,27 @@
 import wx
-#import files
 
 class MainMenu(wx.MenuBar) :
 
   def __init__(self,Frame):
     wx.MenuBar.__init__(self)
-    self.dirname = ''
-    self.EditorFrame = Frame
+    self.ASH_Frame = Frame
 
-    (ID_NEW, ID_OPEN, ID_SAVE, ID_SAVE_AS, ID_PRINT, ID_QUIT) = (101, 102, 103, 104, 105, 106)
-    (ID_UNDO, ID_REDO, ID_CUT, ID_COPY, ID_PASTE, ID_SELECT_ALL) = (201, 202, 203, 204, 205, 206)
-    (ID_CHANGE, ID_ADD) = (401, 402)
-    (ID_ABOUT) = (501)
+    (ID_NEW, ID_LOAD, ID_SAVE, ID_SAVE_AS, ID_QUIT) = (101, 102, 103, 104, 105)
+    (ID_ABOUT) = (201)
 
     Filemenu = wx.Menu()
     Filemenu.Append(ID_NEW, "&New\tCtrl+N"," Create new a file")
-    Filemenu.Append(ID_OPEN, "&Load\tCtrl+L"," Open a file to edit")
+    Filemenu.Append(ID_LOAD, "&Load\tCtrl+L"," Open a file to edit")
     Filemenu.Append(ID_SAVE, "&Save\tCtrl+S"," Save file")
     Filemenu.Append(ID_SAVE_AS, "Save &As\tCtrl+A"," Save file as")
     Filemenu.Append(ID_QUIT,"&Exit\tCtrl+E"," Terminate the program")
-    Filemenu.AppendSeparator()
+#    Filemenu.AppendSeparator()
     Frame.Bind(wx.EVT_MENU, self.OnNew, id=ID_NEW)
-    Frame.Bind(wx.EVT_MENU, self.OnOpen, id=ID_OPEN)
+    Frame.Bind(wx.EVT_MENU, self.OnOpen, id=ID_LOAD)
     Frame.Bind(wx.EVT_MENU, self.OnExit, id=ID_QUIT)
     Frame.Bind(wx.EVT_MENU, self.OnSave, id=ID_SAVE)
     Frame.Bind(wx.EVT_MENU, self.OnSave, id=ID_SAVE_AS)
     self.Append(Filemenu,"&File")
-
-    Editmenu = wx.Menu()
-    Editmenu.Append(ID_CUT, "&Cut\tCtrl+X"," Cut the slected part")
-    Editmenu.Append(ID_COPY, "C&opy\tCtrl+C"," Copy the selected part")
-    Editmenu.Append(ID_PASTE,"&Paste\tCtrl+V"," Paste the select")
-    Editmenu.AppendSeparator()
-    Editmenu.Append(ID_SELECT_ALL, "Select &All\tCtrl+A"," Select entire file")
-#    Frame.Bind(wx.EVT_MENU, self.OnCut, id=ID_CUT)
-#    Frame.Bind(wx.EVT_MENU, self.OnCopy, id=ID_COPY)
-#    Frame.Bind(wx.EVT_MENU, self.OnPaste, id=ID_PASTE)
-#    Frame.Bind(wx.EVT_MENU, self.OnSelectAll, id=ID_SELECT_ALL)
-    self.Append(Editmenu,"&Edit")
 
     Helpmenu = wx.Menu()
     Helpmenu.Append(ID_ABOUT, "&About\tCtrl+H", " Information about the software")
@@ -46,11 +30,23 @@ class MainMenu(wx.MenuBar) :
 
 
   def OnAbout(self,event):
-    AboutMe = wx.MessageDialog(self," A sample editor \nin wxPython","About Sample Editor", wx.OK)
-    AboutMe.ShowModal()
+    Description = """Astute Song Hunter is a tune based search engine that allows the user to search a song in a media database using the hummed tune. This software is completely built using python programming laguage."""
+    Licence = """This is a free and open source software; you can redistribute it and/or modify it 
+under the terms of the GNU General Public License as published by the Free Software Foundation; 
+either version 2 of the License, or (at your option) any later version."""
+    Help = wx.AboutDialogInfo()
+    Help.SetIcon(wx.Icon('icons/ash.jpeg', wx.BITMAP_TYPE_JPEG))
+    Help.SetName('Astute Song Hunter')
+    Help.SetVersion('1.0')
+    Help.SetDescription(Description)
+    Help.SetWebSite('http://code.google.com/p/astute-song-hunter/')
+    Help.SetLicence(Licence)
+    Help.AddDeveloper("Madhusudan C. S\nPuneeth Bhat\nSantosh G. Vattam")
+    wx.AboutBox(Help)
 
   def OnNew(self,event):
     "Under Construction"
+
 
   def OnExit(self,event):
     ExitModal = wx.MessageDialog(self," Are you sure to exit?","Quit Dialog", wx.YES_NO)
@@ -58,8 +54,10 @@ class MainMenu(wx.MenuBar) :
     if Response == wx.ID_YES:
       self.EditorFrame.Close(True)
 
+
   def OnOpen(self,event):
     "Under Construction"
+
 
   def OnSave(self,event):
     "Under Construction"
