@@ -7,16 +7,29 @@ class TunePanel(wx.BoxSizer) :
     Img = wx.Image('icons/wave.png',wx.BITMAP_TYPE_PNG)
     self.Waveform = wx.StaticBitmap(Panel, -1, Img.ConvertToBitmap())
     Player = wx.BoxSizer()
-    self.Play = wx.Button(Panel, label="Play", style=wx.BU_EXACTFIT)
-    self.Record = wx.Button(Panel, label="Record", style=wx.BU_EXACTFIT)
-    self.Stop = wx.Button(Panel, label="Stop", style=wx.BU_EXACTFIT)
+    self.Play = wx.Button(Panel, 1, label="Play", style=wx.BU_EXACTFIT)
+    self.Record = wx.Button(Panel, 2, label="Record", style=wx.BU_EXACTFIT)
+    self.Stop = wx.Button(Panel, 3, label="Stop", style=wx.BU_EXACTFIT)
     Player.Add(self.Play, 0, wx.EXPAND)
+    self.Play.Bind(wx.EVT_BUTTON, self.OnPlay)
+    self.Stop.Bind(wx.EVT_BUTTON, self.OnStop)
     Player.Add(self.Stop, 0, wx.EXPAND)
     Player.Add(self.Record, 0, wx.EXPAND)
     self.Add(self.Timer,0,wx.EXPAND)
     self.Add(self.Waveform,0,wx.EXPAND)
     self.Add(Player,0,wx.EXPAND)
+    self.TuneName = None
+    self.Player = None
 
+  def OnPlay(self,event):
+    if self.TuneName != None:
+      self.Player = wx.Sound(self.TuneName)
+      self.Player.Play()
+  
+  def OnStop(self,event):
+    if self.Player != None:
+      self.Player.Stop()
+      self.Player = None
 
 class SongPanel (wx.BoxSizer):
   def __init__ (self,Frame,Panel):

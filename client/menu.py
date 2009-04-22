@@ -1,4 +1,5 @@
 import wx
+import files
 
 class MainMenu(wx.MenuBar) :
 
@@ -45,7 +46,7 @@ either version 2 of the License, or (at your option) any later version."""
     wx.AboutBox(Help)
 
   def OnNew(self,event):
-    "Under Construction"
+    self.ASH_Frame = None
 
 
   def OnExit(self,event):
@@ -56,7 +57,7 @@ either version 2 of the License, or (at your option) any later version."""
 
 
   def OnOpen(self,event):
-    "Under Construction"
+    files.OpenFile(self.ASH_Frame)
 
 
   def OnSave(self,event):

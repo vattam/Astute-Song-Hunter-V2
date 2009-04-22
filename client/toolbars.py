@@ -1,8 +1,9 @@
 import wx
+import files
 
 class Toolbar(wx.ToolBar):
   def __init__(self,Frame,Panel):
-    self.EditorFrame = Frame
+    self.ASH_Frame = Frame
     wx.ToolBar.__init__(self,Panel, id=-1, style = wx.TB_HORIZONTAL | wx.TB_TEXT)
     (ID_NEW,ID_OPEN,ID_SAVE) = (1,2,3)
     self.AddLabelTool(ID_NEW,'New', wx.Bitmap('icons/new.png'))
@@ -16,13 +17,13 @@ class Toolbar(wx.ToolBar):
 
 
   def OnNew(self,event):
-    "Under Construction"
+    self.ASH_Frame.Tune.TuneName = None
 
 
   def OnOpen(self,event):
-    "Under Construction"
+    files.OpenFile(self.ASH_Frame)
 
 
   def OnSave(self,event):
-    "Under Construction"
+    files.SaveFile(self.ASH_Frame)
 
