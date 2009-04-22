@@ -8,11 +8,15 @@ Filters = ["*.wav"]
 
 def Open(Frame):
   global FileName, DirName
-  Frame.Tune.TuneName = DirName+"/"+FileName
+  F = DirName+"/"+FileName
+  Frame.Tune.TuneName = F
+  Frame.Tune.SnackSound.read(F)
+  Frame.Tune.Title.SetLabel(F)
+
 
 def OpenFile(Frame):
   global FileName, DirName, Filters
-  OpenDialog = wx.FileDialog(Frame,"Open a tune", DirName, '', "*.*", wx.OPEN)
+  OpenDialog = wx.FileDialog(Frame,"Open a tune", DirName, '', "*.wav", wx.OPEN)
   if OpenDialog.ShowModal() == wx.ID_OK:
     DirName = OpenDialog.GetDirectory()
     FileName = OpenDialog.GetFilename()
@@ -22,10 +26,10 @@ def OpenFile(Frame):
 
 def SaveFile(Frame):
   global FileName, DirName
-  if FileName != "":
+  if FileName != "untitled":
     Save(Frame)
   else :
-    SaveDialog = wx.FileDialog(Frame, "Save the file", DirName, FileName, "*.*", wx.SAVE | wx.OVERWRITE_PROMPT)
+    SaveDialog = wx.FileDialog(Frame, "Save the file", DirName, FileName, "*.wav", wx.SAVE | wx.OVERWRITE_PROMPT)
     if SaveDialog.ShowModal() == wx.ID_OK:
       DirName = SaveDialog.GetDirectory()
       FileName = SaveDialog.GetFilename()
@@ -45,13 +49,9 @@ def SaveFileAs(Frame):
 
 def Save(Frame):
   global FileName, DirName
-  FH = file(DirName+"/"+FileName,"w")
-  pickle.dump(Frame.TextEdit.Text.KanadaLines,FH)
-  pickle.dump(Frame.TextEdit.Text.EnglishLines,FH)
-  FH.close()
-
-
-def ChangeLanguage(Frame,Language):
-  Frame.TextEdit.Text.readUnicode(Language)
-  Frame.TextEdit.Text.convertAll()
-  Frame.TextEdit.ViewBox.SetValue(Frame.TextEdit.Text.ConvertedText)
+  if FileName.endswith(".wav"):
+    F = DirName+"/"+FileName
+  else:
+    F = DirName+"/"+FileName+".wav"
+  Frame.Tune.SnackSound.write(F,fileformat="wav")
+  Frame.Tune.Title.SetLabel(F)
