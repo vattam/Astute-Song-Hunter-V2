@@ -7,7 +7,7 @@ from panel import SongPanel
 
 class MainFrame(wx.Frame):
   def __init__(self):
-    wx.Frame.__init__(self,None,title="Astute Song Hunter",style=wx.DEFAULT_FRAME_STYLE)
+    wx.Frame.__init__(self,None, size=(600,600), title="Astute Song Hunter", style=wx.DEFAULT_FRAME_STYLE & ~(wx.MAXIMIZE_BOX|wx.RESIZE_BORDER))
     self.Menubar = MainMenu(self)
     self.SetMenuBar(self.Menubar)
     MainPanel = wx.Panel(self)

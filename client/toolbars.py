@@ -21,7 +21,7 @@ class Toolbar(wx.ToolBar):
     Frame.Bind(wx.EVT_TOOL,self.OnSave, id=ID_SAVE)
     Frame.Bind(wx.EVT_TOOL,self.OnPlay, id=ID_PLAY)
     Frame.Bind(wx.EVT_TOOL,self.OnStop, id=ID_STOP)
-#    Frame.Bind(wx.EVT_TOOL,self.OnSave, id=ID_SAVE)
+    Frame.Bind(wx.EVT_TOOL,self.OnRecord, id=ID_RECORD)
     self.Realize()
     self.Player = None
 
@@ -36,13 +36,21 @@ class Toolbar(wx.ToolBar):
 
   def OnSave(self,event):
     files.SaveFile(self.ASH_Frame)
-    
+
+
   def OnPlay(self,event):
     if self.ASH_Frame.Tune.TuneName != None:
       self.Player = wx.Sound(self.ASH_Frame.Tune.TuneName)
       self.Player.Play()
-  
+
+
   def OnStop(self,event):
     if self.Player != None:
       self.Player.Stop()
       self.Player = None
+
+
+  def OnRecord(self,event):
+    """Under construction"""
+#    import tune
+#    tune.recorder(self.ASH_Frame)
