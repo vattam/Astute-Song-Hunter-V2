@@ -27,3 +27,4 @@ class MainFrame(wx.Frame):
 ASH = wx.App()
 ASH_Frame = MainFrame()
 ASH.MainLoop()
+

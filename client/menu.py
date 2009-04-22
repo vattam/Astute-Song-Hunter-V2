@@ -21,7 +21,7 @@ class MainMenu(wx.MenuBar) :
     Frame.Bind(wx.EVT_MENU, self.OnOpen, id=ID_LOAD)
     Frame.Bind(wx.EVT_MENU, self.OnExit, id=ID_QUIT)
     Frame.Bind(wx.EVT_MENU, self.OnSave, id=ID_SAVE)
-    Frame.Bind(wx.EVT_MENU, self.OnSave, id=ID_SAVE_AS)
+    Frame.Bind(wx.EVT_MENU, self.OnSaveAs, id=ID_SAVE_AS)
     self.Append(Filemenu,"&File")
 
     Helpmenu = wx.Menu()
@@ -47,6 +47,7 @@ either version 2 of the License, or (at your option) any later version."""
 
   def OnNew(self,event):
     self.ASH_Frame = None
+    self.ASH_Frame.Tune.TuneFile = None
 
 
   def OnExit(self,event):
@@ -61,5 +62,9 @@ either version 2 of the License, or (at your option) any later version."""
 
 
   def OnSave(self,event):
-    "Under Construction"
+    files.SaveFile(self.ASH_Frame)
+
+
+  def OnSaveAs(self,event):
+    files.SaveFileAs(self.ASH_Frame)
 
