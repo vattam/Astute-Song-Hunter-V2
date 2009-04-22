@@ -36,8 +36,8 @@ def match(Tune):
     Snd2 = tkSnack.Sound()
     M = []
 
-    for Tag in os.listdir("songs"):
-      Snd2.read("songs/"+Tag)
+    for Tag in os.listdir("../songs"):
+      Snd2.read("../songs/"+Tag)
       Y2 = Snd2.dBPowerSpectrum(fftlength=16384)
       Ang2 = line.normalize(Y2)
 #      t1 = time.time()

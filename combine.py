@@ -5,7 +5,7 @@ import audioop as Audio
 import line, time
 import os,sys
 
-Tune = "tunes/"+sys.argv[1]
+Tune = "../tunes/"+sys.argv[1]
 Time = 0
 
 t1 = time.time()
@@ -28,8 +28,8 @@ Time += time.time()-t1
 
 print "\n\nThe relative match for '",Tune,"' are : \n"
 Match1 = []
-for Tag in os.listdir("songs"):
-  Song = wave.open("songs/"+Tag,'rb')
+for Tag in os.listdir("../songs"):
+  Song = wave.open("../songs/"+Tag,'rb')
   Frame_Rate = Song.getframerate()
   Num_Channels = Song.getnchannels()
   Num_Frames = Song.getnframes()
@@ -46,7 +46,7 @@ for Tag in os.listdir("songs"):
   Song.close()
   t1 = time.time()
   a = line.rms(Max1,Max2)
-  b = line.rms(Min2,Min1)
+  b = line.rms(Min1,Min2)
   diff = int(abs(a-b)*(10**5))
   if diff < 5:
 #    print Tag," - ",diff

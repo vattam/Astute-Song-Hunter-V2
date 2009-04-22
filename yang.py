@@ -2,8 +2,9 @@ import wave, math
 import audioop as Audio
 import line
 
-Song1 = "tunes/ghajini.wav"
-Song2 = "songs/ghajini.wav"
+
+Song1 = "../songs/sdch.wav"
+Song2 = "../songs/dch.wav"
 
 Song = wave.open(Song1,'rb')
 Frame_Rate = Song.getframerate()

@@ -1,7 +1,7 @@
 import os
 import wx
 
-DirName = "saves"
+DirName = "."
 FileName = "untitled"
 Filters = ["*.wav"]
 
@@ -12,7 +12,7 @@ def Open(Frame):
 
 def OpenFile(Frame):
   global FileName, DirName, Filters
-  OpenDialog = wx.FileDialog(Frame,"Open a tune", DirName, '', "*.wav", wx.OPEN)
+  OpenDialog = wx.FileDialog(Frame,"Open a tune", DirName, '', "*.*", wx.OPEN)
   if OpenDialog.ShowModal() == wx.ID_OK:
     DirName = OpenDialog.GetDirectory()
     FileName = OpenDialog.GetFilename()
