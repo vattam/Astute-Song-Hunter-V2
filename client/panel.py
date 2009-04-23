@@ -1,9 +1,12 @@
 import wx
 import Tkinter, tkSnack
+import process
+import search
 
 
 class TunePanel(wx.BoxSizer) :
   def __init__ (self,Frame,Panel):
+    self.ASH_Frame = Frame
     wx.BoxSizer.__init__(self,wx.VERTICAL)
     RecordBox = wx.StaticBoxSizer(wx.StaticBox(Panel, -1, label='Tune'), wx.VERTICAL)
     self.Time = wx.StaticText(Panel, label="Time : 15 Sec")
@@ -16,8 +19,9 @@ class TunePanel(wx.BoxSizer) :
     self.Add(RecordBox, 0, wx.TOP|wx.LEFT, border=10)
 
     SearchBox = wx.StaticBoxSizer(wx.StaticBox(Panel, -1, label='Search Server'))
-    self.ServerList = wx.ComboBox(Panel, value="localhost",size=(150,10), choices=["localhost"], style=wx.CB_READONLY|wx.CB_DROPDOWN)
+    self.ServerList = wx.ComboBox(Panel, value="http://localhost/",size=(150,10), choices=["http://localhost/"], style=wx.CB_READONLY|wx.CB_DROPDOWN)
     self.Search = wx.Button(Panel, label="Search", style=wx.BU_EXACTFIT)
+    self.Search.Bind(wx.EVT_BUTTON, self.OnSearch)
     SearchBox.Add(self.ServerList, 0, wx.EXPAND|wx.ALL, border=5)
     SearchBox.Add(self.Search, 0, wx.EXPAND|wx.ALL, border=5)
     self.Add(SearchBox, 0, wx.TOP|wx.LEFT, border=20)
@@ -27,9 +31,26 @@ class TunePanel(wx.BoxSizer) :
     tkSnack.initializeSnack(self.TkRoot)
     self.SnackSound = tkSnack.Sound()
 
+  def OnSearch(self, event):
+    ServerName =  self.ServerList.GetValue()
+    if self.TuneName == None:
+      Dialog = wx.MessageDialog(None, 'No tune found', 'Tune Empty', wx.OK | wx.ICON_EXCLAMATION)
+      Dialog.ShowModal()
+      return
+    #self.SnackSound.configure(channels=1, frequency=22050, fileformat='WAV', encoding='Lin8')
+    T = process.Tag(self.SnackSound)
+    T.calculate_slope()
+    T.calculate_max_min()
+    Songs = search.GetSongs(T,ServerName)
+    self.ASH_Frame.Song.SongList.Set(Songs)
+    self.ASH_Frame.Song.Songs = Songs
+    del(T)
+
+
 
 class SongPanel(wx.StaticBoxSizer):
   def __init__ (self,Frame,Panel):
     wx.StaticBoxSizer.__init__(self, wx.StaticBox(Panel, -1, label='Song List'), wx.VERTICAL)
     self.SongList = wx.ListBox(Panel, size=(260,470), choices=["No Songs Selected"])
     self.Add(self.SongList, 0, wx.ALL, border=10)
+    self.Songs = None

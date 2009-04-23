@@ -8,7 +8,8 @@ class MainMenu(wx.MenuBar) :
     self.ASH_Frame = Frame
 
     (ID_NEW, ID_LOAD, ID_SAVE, ID_SAVE_AS, ID_QUIT) = (101, 102, 103, 104, 105)
-    (ID_ABOUT) = (201)
+    (ID_ADD) = (201)
+    (ID_ABOUT,ID_DOC) = (301, 302)
 
     Filemenu = wx.Menu()
     Filemenu.Append(ID_NEW, "&New\tCtrl+N"," Create new a file")
@@ -24,9 +25,17 @@ class MainMenu(wx.MenuBar) :
     Frame.Bind(wx.EVT_MENU, self.OnSaveAs, id=ID_SAVE_AS)
     self.Append(Filemenu,"&File")
 
+    Settingsmenu = wx.Menu()
+    Settingsmenu.Append(ID_ADD, "&Add Server\tCtrl+A", " Add a media server to search")
+    Frame.Bind(wx.EVT_MENU, self.OnAdd, id=ID_ADD)
+    self.Append(Settingsmenu,"&Settings")
+
+
     Helpmenu = wx.Menu()
     Helpmenu.Append(ID_ABOUT, "&About\tCtrl+H", " Information about the software")
+    Helpmenu.Append(ID_DOC, "&Documentation\tCtrl+D", " A view of Documentation")
     Frame.Bind(wx.EVT_MENU, self.OnAbout, id=ID_ABOUT)
+    Frame.Bind(wx.EVT_MENU, self.OnDoc, id=ID_DOC)
     self.Append(Helpmenu,"&Help")
 
 
@@ -67,4 +76,12 @@ either version 2 of the License, or (at your option) any later version."""
 
   def OnSaveAs(self,event):
     files.SaveFileAs(self.ASH_Frame)
+
+
+  def OnAdd(self,event):
+    """Under Construction"""
+
+
+  def OnDoc(self,event):
+    """Under Construction"""
 

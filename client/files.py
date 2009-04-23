@@ -11,7 +11,7 @@ def Open(Frame):
   F = DirName+"/"+FileName
   Frame.Tune.TuneName = F
   Frame.Tune.SnackSound.read(F)
-  Frame.Tune.Title.SetLabel(F)
+  Frame.Tune.Title.SetLabel(F.split("/")[-1])
 
 
 def OpenFile(Frame):
@@ -54,4 +54,4 @@ def Save(Frame):
   else:
     F = DirName+"/"+FileName+".wav"
   Frame.Tune.SnackSound.write(F,fileformat="wav")
-  Frame.Tune.Title.SetLabel(F)
+  Frame.Tune.Title.SetLabel(F.split("/")[-1])

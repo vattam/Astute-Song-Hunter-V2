@@ -17,11 +17,11 @@ class Toolbar(wx.ToolBar):
     self.AddLabelTool(ID_DOWNLOAD, 'Save Song', wx.Bitmap('icons/download.jpeg'))
     self.AddSeparator()    
     Frame.Bind(wx.EVT_TOOL, self.OnNew, id=ID_NEW)
-    Frame.Bind(wx.EVT_TOOL,self.OnOpen, id=ID_OPEN)
-    Frame.Bind(wx.EVT_TOOL,self.OnSave, id=ID_SAVE)
-    Frame.Bind(wx.EVT_TOOL,self.OnPlay, id=ID_PLAY)
-    Frame.Bind(wx.EVT_TOOL,self.OnStop, id=ID_STOP)
-    Frame.Bind(wx.EVT_TOOL,self.OnRecord, id=ID_RECORD)
+    Frame.Bind(wx.EVT_TOOL, self.OnOpen, id=ID_OPEN)
+    Frame.Bind(wx.EVT_TOOL, self.OnSave, id=ID_SAVE)
+    Frame.Bind(wx.EVT_TOOL, self.OnPlay, id=ID_PLAY)
+    Frame.Bind(wx.EVT_TOOL, self.OnStop, id=ID_STOP)
+    Frame.Bind(wx.EVT_TOOL, self.OnRecord, id=ID_RECORD)
     self.Realize()
     self.Player = None
 
@@ -39,9 +39,13 @@ class Toolbar(wx.ToolBar):
 
 
   def OnPlay(self,event):
-    if self.ASH_Frame.Tune.TuneName != None:
-      self.Player = wx.Sound(self.ASH_Frame.Tune.TuneName)
-      self.Player.Play()
+    S = self.ASH_Frame.Song.SongList.GetSelections()
+    if self.ASH_Frame.Song.Songs == None or S == ():
+      if self.ASH_Frame.Tune.TuneName != None:
+        self.Player = wx.Sound(self.ASH_Frame.Tune.TuneName)
+        self.Player.Play()
+    else : 
+      print self.ASH_Frame.Song.Songs[S]
 
 
   def OnStop(self,event):
