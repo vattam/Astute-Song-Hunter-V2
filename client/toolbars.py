@@ -12,7 +12,7 @@ class Toolbar(wx.ToolBar):
     self.AddSeparator()
     self.AddLabelTool(ID_PLAY, 'Play', wx.Bitmap('icons/play.png'))
     self.AddLabelTool(ID_STOP, 'Stop', wx.Bitmap('icons/stop.png'))
-    self.AddLabelTool(ID_RECORD, 'Record', wx.Bitmap('icons/stop.png'))
+    self.AddLabelTool(ID_RECORD, 'Record', wx.Bitmap('icons/record.png'))
     self.AddSeparator()
     self.AddLabelTool(ID_DOWNLOAD, 'Save Song', wx.Bitmap('icons/download.jpeg'))
     self.AddSeparator()    

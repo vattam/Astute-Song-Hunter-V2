@@ -79,9 +79,31 @@ either version 2 of the License, or (at your option) any later version."""
 
 
   def OnAdd(self,event):
-    """Under Construction"""
-
-
+    AddServer = wx.Dialog(self.ASH_Frame, title="Add Server", size=(256,256))
+    panel = wx.Panel(AddServer,-1)
+    vbox = wx.BoxSizer(wx.VERTICAL)
+    wx.StaticBox(panel,-1, 'Select Server',(5,5), (240,180))
+    wx.StaticText(panel,-1, 'Enter the Server URL',(60,75),style=wx.ALIGN_CENTER)
+    wx.StaticText(panel,-1, 'Name:',(50,110))
+    wx.StaticText(panel,-1, 'URL:',(55,150))
+    wx.TextCtrl(panel,-1, '',(95,105), name='Name')
+    wx.TextCtrl(panel,-1, '',(95,145), name='URL')
+    
+    hbox = wx.BoxSizer(wx.HORIZONTAL)
+    okButton = wx.Button(AddServer, -1, 'Select', size=(70, 30))
+    closeButton = wx.Button(AddServer, -1, 'Close', size=(70, 30))
+    okButton.SetDefault()
+    hbox.Add(okButton, 1, wx.LEFT)
+    hbox.Add(closeButton, 1, wx.LEFT, 5)
+    
+    vbox.Add(panel)
+    vbox.Add(hbox, 1, wx.ALIGN_CENTER | wx.TOP | wx.BOTTOM, 10)
+    AddServer.SetSizer(vbox)
+    AddServer.ShowModal()
+#    if(closeButton.IsEnabled()==True):
+#      panel.Close()
+#    """Under Construction"""
+    
   def OnDoc(self,event):
     """Under Construction"""
 
