@@ -89,9 +89,12 @@ either version 2 of the License, or (at your option) any later version."""
     wx.TextCtrl(panel,-1, '',(95,105), name='Name')
     wx.TextCtrl(panel,-1, '',(95,145), name='URL')
     
+    def closeServer(event):
+      AddServer.Close()
     hbox = wx.BoxSizer(wx.HORIZONTAL)
     okButton = wx.Button(AddServer, -1, 'Select', size=(70, 30))
     closeButton = wx.Button(AddServer, -1, 'Close', size=(70, 30))
+    closeButton.Bind(wx.EVT_BUTTON, closeServer)
     okButton.SetDefault()
     hbox.Add(okButton, 1, wx.LEFT)
     hbox.Add(closeButton, 1, wx.LEFT, 5)
@@ -100,8 +103,8 @@ either version 2 of the License, or (at your option) any later version."""
     vbox.Add(hbox, 1, wx.ALIGN_CENTER | wx.TOP | wx.BOTTOM, 10)
     AddServer.SetSizer(vbox)
     AddServer.ShowModal()
-#    if(closeButton.IsEnabled()==True):
-#      panel.Close()
+
+  
 #    """Under Construction"""
     
   def OnDoc(self,event):
