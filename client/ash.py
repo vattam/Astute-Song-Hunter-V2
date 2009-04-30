@@ -3,6 +3,7 @@ from menu import MainMenu
 from toolbars import Toolbar
 from panel import TunePanel
 from panel import SongPanel
+from splash import SplashScreen
 
 
 class MainFrame(wx.Frame):
@@ -21,10 +22,11 @@ class MainFrame(wx.Frame):
     MainPanel.SetSizer(VBox)
     self.Centre()
 #    self.Maximize(True)
-    self.Show(True)
+#    self.Show(True)
 
 
 ASH = wx.App()
 ASH_Frame = MainFrame()
+Splash = SplashScreen(ASH_Frame)
 ASH.MainLoop()
 

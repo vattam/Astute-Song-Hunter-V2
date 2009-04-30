@@ -19,7 +19,8 @@ class TunePanel(wx.BoxSizer) :
     self.Add(RecordBox, 0, wx.TOP|wx.LEFT, border=10)
 
     SearchBox = wx.StaticBoxSizer(wx.StaticBox(Panel, -1, label='Search Server'))
-    self.ServerList = wx.ComboBox(Panel, value="http://localhost/",size=(150,10), choices=["http://localhost/"], style=wx.CB_READONLY|wx.CB_DROPDOWN)
+    List = self.GetList()
+    self.ServerList = wx.ComboBox(Panel, value="localhost",size=(150,10), choices=List, style=wx.CB_DROPDOWN)
     self.Search = wx.Button(Panel, label="Search", style=wx.BU_EXACTFIT)
     self.Search.Bind(wx.EVT_BUTTON, self.OnSearch)
     SearchBox.Add(self.ServerList, 0, wx.EXPAND|wx.ALL, border=5)
@@ -46,6 +47,12 @@ class TunePanel(wx.BoxSizer) :
     self.ASH_Frame.Song.Songs = Songs
     del(T)
 
+  def GetList (self):
+    import pickle
+    FH = open(".log.ash","r")
+    List = pickle.load(FH)
+    FH.close()
+    return List.keys()
 
 
 class SongPanel(wx.StaticBoxSizer):
