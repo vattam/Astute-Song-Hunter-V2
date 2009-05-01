@@ -1,6 +1,6 @@
 import wx
 import files
-from add_server import AddDialog
+import server
 
 class MainMenu(wx.MenuBar) :
 
@@ -9,7 +9,7 @@ class MainMenu(wx.MenuBar) :
     self.ASH_Frame = Frame
 
     (ID_NEW, ID_LOAD, ID_SAVE, ID_SAVE_AS, ID_QUIT) = (101, 102, 103, 104, 105)
-    (ID_ADD) = (201)
+    (ID_ADD,ID_REMOVE) = (201, 202)
     (ID_ABOUT,ID_DOC) = (301, 302)
 
     Filemenu = wx.Menu()
@@ -27,8 +27,10 @@ class MainMenu(wx.MenuBar) :
     self.Append(Filemenu,"&File")
 
     Settingsmenu = wx.Menu()
-    Settingsmenu.Append(ID_ADD, "&Add Server\tCtrl+A", " Add a media server to search")
+    Settingsmenu.Append(ID_ADD, "&Add Server\tCtrl+A", " Add a media server to search.")
+    Settingsmenu.Append(ID_REMOVE, "&Remove Server\tCtrl+R", " Remove a media server from the list.")
     Frame.Bind(wx.EVT_MENU, self.OnAdd, id=ID_ADD)
+    Frame.Bind(wx.EVT_MENU, self.OnRemove, id=ID_REMOVE)
     self.Append(Settingsmenu,"&Settings")
 
 
@@ -80,7 +82,11 @@ either version 2 of the License, or (at your option) any later version."""
 
 
   def OnAdd(self,event):
-    Dialog = AddDialog(self.ASH_Frame)
+    Dialog = server.AddDialog(self.ASH_Frame)
+    Dialog.Display()
+
+  def OnRemove(self,event):
+    Dialog = server.RemoveDialog(self.ASH_Frame)
     Dialog.Display()
 
 

@@ -19,7 +19,7 @@ class TunePanel(wx.BoxSizer) :
     self.Add(RecordBox, 0, wx.TOP|wx.LEFT, border=10)
 
     SearchBox = wx.StaticBoxSizer(wx.StaticBox(Panel, -1, label='Search Server'))
-    List = self.GetList()
+    List = self.GetList().keys()
     self.ServerList = wx.ComboBox(Panel, value="localhost",size=(150,10), choices=List, style=wx.CB_DROPDOWN)
     self.Search = wx.Button(Panel, label="Search", style=wx.BU_EXACTFIT)
     self.Search.Bind(wx.EVT_BUTTON, self.OnSearch)
@@ -34,6 +34,7 @@ class TunePanel(wx.BoxSizer) :
 
   def OnSearch(self, event):
     ServerName =  self.ServerList.GetValue()
+    ServerUrl = self.GetList()[ServerName]
     if self.TuneName == None:
       Dialog = wx.MessageDialog(None, 'No tune found', 'Tune Empty', wx.OK | wx.ICON_EXCLAMATION)
       Dialog.ShowModal()
@@ -42,7 +43,7 @@ class TunePanel(wx.BoxSizer) :
     T = process.Tag(self.SnackSound)
     T.calculate_slope()
     T.calculate_max_min()
-    Songs = search.GetSongs(T,ServerName)
+    Songs = search.GetSongs(T,ServerUrl)
     self.ASH_Frame.Song.SongList.Set(Songs)
     self.ASH_Frame.Song.Songs = Songs
     del(T)
@@ -52,7 +53,7 @@ class TunePanel(wx.BoxSizer) :
     FH = open(".log.ash","r")
     List = pickle.load(FH)
     FH.close()
-    return List.keys()
+    return List
 
 
 class SongPanel(wx.StaticBoxSizer):
