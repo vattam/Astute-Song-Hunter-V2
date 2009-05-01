@@ -1,0 +1,10 @@
+(dp0
+VGoogle
+p1
+Vhttp://google.co.in/
+p2
+sS'localhost'
+p3
+S'http://localhost/'
+p4
+s.
