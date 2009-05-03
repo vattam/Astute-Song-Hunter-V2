@@ -22,12 +22,17 @@ class Toolbar(wx.ToolBar):
     Frame.Bind(wx.EVT_TOOL, self.OnPlay, id=ID_PLAY)
     Frame.Bind(wx.EVT_TOOL, self.OnStop, id=ID_STOP)
     Frame.Bind(wx.EVT_TOOL, self.OnRecord, id=ID_RECORD)
+    Frame.Bind(wx.EVT_TOOL, self.OnSaveSong, id=ID_DOWNLOAD)
     self.Realize()
     self.Player = None
 
 
   def OnNew(self,event):
     self.ASH_Frame.Tune.TuneName = None
+    self.ASH_Frame.Song.Songs = None
+    self.ASH_Frame.Song.SongList.Set(["No Songs Selected"])
+    self.ASH_Frame.Tune.SnackSound.flush()
+    files.OnNew()
 
 
   def OnOpen(self,event):
@@ -39,13 +44,9 @@ class Toolbar(wx.ToolBar):
 
 
   def OnPlay(self,event):
-    S = self.ASH_Frame.Song.SongList.GetSelections()
-    if self.ASH_Frame.Song.Songs == None or S == ():
-      if self.ASH_Frame.Tune.TuneName != None:
-        self.Player = wx.Sound(self.ASH_Frame.Tune.TuneName)
-        self.Player.Play()
-    else : 
-      print self.ASH_Frame.Song.Songs[S]
+    if self.ASH_Frame.Tune.TuneName != None:
+      self.Player = wx.Sound(self.ASH_Frame.Tune.TuneName)
+      self.Player.Play()
 
 
   def OnStop(self,event):
@@ -58,3 +59,12 @@ class Toolbar(wx.ToolBar):
     """Under construction"""
 #    import tune
 #    tune.recorder(self.ASH_Frame)
+
+
+  def OnSaveSong(self, event):
+    S = self.ASH_Frame.Song.SongList.GetSelections()
+    if self.ASH_Frame.Song.Songs == None or S == ():
+      Dialog = wx.MessageDialog(None, "No Song Selected.", 'Error!', wx.OK | wx.ICON_ERROR)
+      Dialog.ShowModal()
+    else:
+      files.SaveSong(self.ASH_Frame)

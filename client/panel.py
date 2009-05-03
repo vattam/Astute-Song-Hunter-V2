@@ -9,7 +9,7 @@ class TunePanel(wx.BoxSizer) :
     self.ASH_Frame = Frame
     wx.BoxSizer.__init__(self,wx.VERTICAL)
     RecordBox = wx.StaticBoxSizer(wx.StaticBox(Panel, -1, label='Tune'), wx.VERTICAL)
-    self.Time = wx.StaticText(Panel, label="Time : 15 Sec")
+    self.Time = wx.StaticText(Panel, label="Time : 0 Sec")
     self.Title = wx.StaticText(Panel, size=(250,20), label="untitled.wav", style=wx.ALIGN_CENTER)
     Img = wx.Image('icons/wave.png',wx.BITMAP_TYPE_PNG)
     self.Waveform = wx.StaticBitmap(Panel, -1, Img.ConvertToBitmap())
@@ -44,7 +44,7 @@ class TunePanel(wx.BoxSizer) :
     T.calculate_slope()
     T.calculate_max_min()
     Songs = search.GetSongs(T,ServerUrl)
-    self.ASH_Frame.Song.SongList.Set(Songs)
+    self.ASH_Frame.Song.SongList.Set(Songs.keys())
     self.ASH_Frame.Song.Songs = Songs
     del(T)
 

@@ -57,9 +57,13 @@ either version 2 of the License, or (at your option) any later version."""
     Help.AddDeveloper("Madhusudan C. S\nPuneeth Bhat\nSantosh G. Vattam")
     wx.AboutBox(Help)
 
+
   def OnNew(self,event):
-    self.ASH_Frame = None
-    self.ASH_Frame.Tune.TuneFile = None
+    self.ASH_Frame.Tune.TuneName = None
+    self.ASH_Frame.Song.Songs = None
+    self.ASH_Frame.Song.SongList.Set(["No Songs Selected"])
+    self.ASH_Frame.Tune.SnackSound.flush()
+    files.OnNew()
 
 
   def OnExit(self,event):

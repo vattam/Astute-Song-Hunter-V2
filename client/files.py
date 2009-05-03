@@ -6,12 +6,20 @@ FileName = "untitled"
 Filters = ["*.wav"]
 
 
+def OnNew():
+  DirName = "."
+  FileName = "untitled"
+
+
 def Open(Frame):
   global FileName, DirName
   F = DirName+"/"+FileName
   Frame.Tune.TuneName = F
   Frame.Tune.SnackSound.read(F)
   Frame.Tune.Title.SetLabel(F.split("/")[-1])
+  Time = "Time : " + str(Frame.Tune.SnackSound.length(unit="SECONDS")) + "Sec"
+  Frame.Tune.Time.SetLabel(Time)
+
 
 
 def OpenFile(Frame):
@@ -55,3 +63,39 @@ def Save(Frame):
     F = DirName+"/"+FileName+".wav"
   Frame.Tune.SnackSound.write(F,fileformat="wav")
   Frame.Tune.Title.SetLabel(F.split("/")[-1])
+
+
+def SaveSong(Frame):
+  global DirName
+  FileName = "song"
+  Directory = DirName
+  SaveDialog = wx.FileDialog(Frame, "Save the song file", DirName, FileName, "*.*", wx.SAVE | wx.OVERWRITE_PROMPT)
+  if SaveDialog.ShowModal() == wx.ID_OK:
+    Directory = SaveDialog.GetDirectory()
+    FileName = SaveDialog.GetFilename()
+    SaveBinary(Directory, FileName, Frame)
+  SaveDialog.Destroy()
+
+
+def SaveBinary (Directory, FileName, Frame):
+  import urllib
+  SongPath = "file:///home/puneeth/astute-song-hunter/client/saves/nin_2.wav"
+  try :
+    SongFile = open(Directory+"/"+FileName, "wb")
+  except IOError:
+    DisplayError("File cannnot be open!")
+    return
+  try:
+    Song = urllib.urlopen(SongPath)
+  except IOError:
+    DisplayError("Invalid Server Path!")
+    return
+  SongFile.writelines(Song.read())
+  SongFile.close()
+  Dialog = wx.MessageDialog(None, "Song saved successfully at\n"+Directory, 'Songs Saved', wx.OK | wx.ICON_INFORMATION)
+  Dialog.ShowModal()
+
+
+def DisplayError(ErrorMessage):
+  Dialog = wx.MessageDialog(None, ErrorMessage, 'Error!', wx.OK | wx.ICON_ERROR)
+  Dialog.ShowModal()
