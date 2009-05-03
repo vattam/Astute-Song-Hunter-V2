@@ -49,7 +49,6 @@ class AddDialog (wx.Dialog):
     FH = open(".log.ash","w")
     pickle.dump(ServerList, FH)
     FH.close()
-#    self.ASH_Frame.Tune.ServerList.SetInsertionPointEnd()
 #    self.ASH_Frame.Tune.ServerList.SetValue(Name)
     self.Close()
 

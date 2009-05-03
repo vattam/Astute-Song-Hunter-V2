@@ -27,7 +27,7 @@ class MainMenu(wx.MenuBar) :
     self.Append(Filemenu,"&File")
 
     Settingsmenu = wx.Menu()
-    Settingsmenu.Append(ID_ADD, "&Add Server\tCtrl+A", " Add a media server to search.")
+    Settingsmenu.Append(ID_ADD, "&Add Server\tCtrl+I", " Insert a media server to search.")
     Settingsmenu.Append(ID_REMOVE, "&Remove Server\tCtrl+R", " Remove a media server from the list.")
     Frame.Bind(wx.EVT_MENU, self.OnAdd, id=ID_ADD)
     Frame.Bind(wx.EVT_MENU, self.OnRemove, id=ID_REMOVE)
