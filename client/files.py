@@ -67,12 +67,16 @@ def Save(Frame):
 
 def SaveSong(Frame):
   global DirName
-  FileName = "song"
+  SongIndex = Frame.Song.SongList.GetSelections()[0]
+  FileName = Frame.Song.Songs.keys()[SongIndex]
+  Format = FileName.split(".")[-1]
   Directory = DirName
   SaveDialog = wx.FileDialog(Frame, "Save the song file", DirName, FileName, "*.*", wx.SAVE | wx.OVERWRITE_PROMPT)
   if SaveDialog.ShowModal() == wx.ID_OK:
     Directory = SaveDialog.GetDirectory()
     FileName = SaveDialog.GetFilename()
+    if FileName.split(".")[-1] != Format:
+      FileName = FileName + "." + Format
     SaveBinary(Directory, FileName, Frame)
   SaveDialog.Destroy()
 
