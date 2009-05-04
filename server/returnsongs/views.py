@@ -15,7 +15,13 @@ def tags_added(request):
         tag_dir = tag_dir + '/'
     
     tag_data = main(tag_dir)
-    return HttpResponse(tagdata)
+
+    #tag_data = [list of tag], where 
+    #tag = [song_name, song_path, song_slope, max_list, min_list]
+    
+    #add each tag in tag_data to DB here...
+
+    return HttpResponse(len(tag_data))
 
 def retrievesongs(request):
     pass
