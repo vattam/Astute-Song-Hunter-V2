@@ -8,9 +8,9 @@ class SongTag(models.Model):
 
 class TagsMaxList(models.Model):
     song_id = models.ForeignKey(SongTag)
-    max_list = models.FloatField()
+    max_value = models.FloatField()
     
 class TagsMinList(models.Model):
     song_id = models.ForeignKey(SongTag)
-    min_list = models.FloatField()
+    min_value = models.FloatField()
 
