@@ -14,4 +14,7 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     # (r'^admin/', include(admin.site.urls)),
+    (r'^ash/bulk-add-tags/$', 'server.returnsongs.views.bulk_add_tags'),
+    (r'^ash/tags-added/$', 'server.returnsongs.views.tags_added'),
+    (r'^ash/retrievesongs/$', 'server.returnsongs.views.retrievesongs'),
 )
