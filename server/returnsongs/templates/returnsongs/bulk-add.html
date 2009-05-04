@@ -1,0 +1,11 @@
+{% extends "returnsongs/base.html" %}
+
+{% block title %}Add a Directory of Tags{% endblock title %}
+
+{% block body %}
+<h1>{{ poll.question }}</h1>
+<form action="/ash/tags-added/" method="post">
+ <input type="text" name="tagdir" />
+ <input type="submit" value="Add Directory" />
+</form>
+{% endblock body %}
