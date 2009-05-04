@@ -49,7 +49,7 @@ def main(path):
         Song_Path = path+Song_Name
         Song.load(Song_Path)
         Slope, max_list, min_list = Song.get_tags()
-        Tags.append({"Name":Song_Name, "Path":Song_Path, "Slope":Slope, "MaxList":max_list, "MinList":min_list))
+        Tags.append({"Name":Song_Name, "Path":Song_Path, "Slope":Slope, "MaxList":max_list, "MinList":min_list})
 
 #    print len(Tags)
     return Tags
