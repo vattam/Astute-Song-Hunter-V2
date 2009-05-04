@@ -54,20 +54,20 @@ class ConstructTags(tkSnack.Sound):
         return (dbpowerspectrum_tags_list, max_tags_list, min_tags_list)
 
 
-def main():
+def main(path):
     Tags=[]
     root = Tkinter.Tk()
     tkSnack.initializeSnack(root)
     Song = ConstructTags()
     
-    for Song_Name in os.listdir("../songs"):
-        Song_Name = "../songs/"+Song_Name
+    for Song_Name in os.listdir(path):
+        Song_Name = path+Song_Name
         Song.load(Song_Name)
         dbspectrum,max_tags_list,min_tags_list = Song.get_tags()
         Tags.append((Song_Name,dbspectrum,(max_tags_list,min_tags_list)))
         print Song_Name
     
-    pickle.dump(Tags,Tag_File)
+    return Tags
 
 
 if __name__ == "__main__":
