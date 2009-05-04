@@ -7,10 +7,10 @@ class SongTag(models.Model):
     slope = models.FloatField()
 
 class TagsMaxList(models.Model):
-    song_id = models.ForeignKey(SongTag)
+    song = models.ForeignKey(SongTag)
     max_value = models.FloatField()
     
 class TagsMinList(models.Model):
-    song_id = models.ForeignKey(SongTag)
+    song = models.ForeignKey(SongTag)
     min_value = models.FloatField()
 
