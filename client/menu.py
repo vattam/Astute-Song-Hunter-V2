@@ -63,6 +63,8 @@ either version 2 of the License, or (at your option) any later version."""
     self.ASH_Frame.Song.Songs = None
     self.ASH_Frame.Song.SongList.Set(["No Songs Selected"])
     self.ASH_Frame.Tune.SnackSound.flush()
+    self.ASH_Frame.Tune.Time.SetLabel("Time : 0 Sec")
+    self.Frame.Tune.Title.SetLabel("untitled.wav")
     files.OnNew()
 
 
