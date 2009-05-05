@@ -72,7 +72,14 @@ class SearchPanel(wx.StaticBoxSizer):
     T.calculate_slope()
     T.calculate_max_min()
     Songs = search.GetSongs(T,ServerUrl)
+    if Songs == -1:
+      DisplayError("Cannot connect to server - \n"+ServerUrl)
+      del(T)
+      return
     self.ASH_Frame.Song.SongList.Set(Songs.keys())
     self.ASH_Frame.Song.Songs = Songs
     del(T)
 
+  def DisplayError(ErrorMessage):
+    Dialog = wx.MessageDialog(None, ErrorMessage, 'Error!', wx.OK | wx.ICON_ERROR)
+    Dialog.ShowModal()
