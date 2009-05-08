@@ -3,6 +3,7 @@ from django.shortcuts import render_to_response, get_object_or_404
 
 from server.returnsongs.models import SongTag, TagsMinList, TagsMaxList
 from server.returnsongs.all import main
+from server.returnsongs.search import SearchTune
 
 # Create your views here.
 def bulk_add_tags(request):
@@ -29,22 +30,19 @@ def tags_added(request):
     return HttpResponse(len(tag_data))
 
 def retrievesongs(request):
-    pass
-
-## task to be done once a request is obtained
-
-#1. say a client requests by posting a hums values in $POST (just say)
-
-#2. create a new object ST = search.SongTune ($POST[Slope], $POST[MaxVar], $POST[MinVar])
-
-#3. perform the query something like - 
-
-    # List1 = select * from SongTag where ST.SearchByRegression(SongTag.Slope) is True;
+    hum_slope = request.POST['Slope']
+    hum_maxvar = request.POST['MaxVar']
+    hum_minvar = request.POST['MinVar']
     
-    # List2 = select * from SongTag where ST.FindMaxMin (
-    #           select * from TagsMaxList where SongId = SongTag.SongId, 
-    #           select * from TagsMinList where SongId = SongTag.SongId
-    #         ) is True;
+    stune = SongTune(hum_slope, hum_maxvar, hum_minvar)
+    
+    selected_songs = []
+    
+    stags = SongTag.objects.all()
+    for stag in stags:
+        if stune.SearchByRegression(stag.Slope) and stune.FindMaxMin(
+          stune.getTagsMaxList(), stune.getTagsMinList()):
+            selected_songs.append((stag.name, stag.path))
 
-#4. return Intersection of 2 lists
-
+    
+    return HttpResponse(selected_songs)
