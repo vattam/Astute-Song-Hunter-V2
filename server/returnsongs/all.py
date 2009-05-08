@@ -19,7 +19,6 @@ class ConstructTags(tkSnack.Sound):
         self.ByteLength = 1
         self.Length = self.length(unit="SAMPLES")
         self.sampling_rate = self.cget("frequency")
-        self.write(".temp.wav")
 #        Temp = wave.open(".temp.wav","rb")
 #        self.Stream = Temp.readframes(self.Length)
 #        Temp.close()
@@ -28,7 +27,7 @@ class ConstructTags(tkSnack.Sound):
     def get_minmax_tag(self):
         min_list = []
         max_list = []
-        i = 0
+        self.write(".temp.wav")
         Song = wave.open(".temp.wav","rb")
         NumStream = Song.getnframes()
         BufferLen = NumStream / self.FragmentFactor
