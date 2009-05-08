@@ -28,11 +28,7 @@ class Toolbar(wx.ToolBar):
 
 
   def OnNew(self,event):
-    self.ASH_Frame.Tune.TuneName = None
-    self.ASH_Frame.Song.Songs = None
-    self.ASH_Frame.Song.SongList.Set(["No Songs Selected"])
-    self.ASH_Frame.Tune.SnackSound.flush()
-    files.OnNew()
+    files.OnNew(self.ASH_Frame)
 
 
   def OnOpen(self,event):

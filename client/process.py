@@ -8,21 +8,22 @@ class Tag:
     self.Min_List = []
     self.Slope = None
     self.Sound = Sound
+    self.Sound.configure(channels=1, fileformat='WAV', encoding='Lin8')
+    self.FragmentFactor = 256
 
   def calculate_max_min(self):
     self.Sound.write(".temp.wav")
     S = wave.open(".temp.wav","rb")
-    Length = self.Sound.length(unit="SAMPLES")
-    Stream = S.readframes(Length)
-    S.close()
-    os.remove(".temp.wav")
-    Frame_Buffer = Length / 256
-    i = 0
-    while i <= Length:
-      min_val, max_val = audioop.minmax(Stream[i:i+256], 1)
+    Length = S.getnframes()
+    BufferLen = Length / self.FragmentFactor
+    Stream = S.readframes(BufferLen)
+    while len(Stream) :
+      min_val, max_val = audioop.minmax(Stream, 1)
       self.Min_List.append(min_val)
       self.Max_List.append(max_val)
-      i += 256
+      Stream = S.readframes(BufferLen)
+    S.close()
+    os.remove(".temp.wav")
 
   def calculate_slope(self):
     L = self.Sound.dBPowerSpectrum(fftlength=16384)

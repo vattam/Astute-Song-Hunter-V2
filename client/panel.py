@@ -39,6 +39,7 @@ class SongPanel(wx.StaticBoxSizer):
         Player = None
       SongIndex = self.SongList.GetSelections()[0]
       SongName = self.Songs.keys()[SongIndex]
+      SongPath = self.Songs[SongName]
       print "Playing Song : ",SongName
 
 

@@ -6,9 +6,16 @@ FileName = "untitled"
 Filters = ["*.wav"]
 
 
-def OnNew():
+def OnNew(Frame):
   DirName = "."
   FileName = "untitled"
+  Frame.Tune.TuneName = None
+  Frame.Song.Songs = None
+  Frame.Song.SongList.Set(["No Songs Selected"])
+  Frame.Tune.SnackSound.flush()
+  Frame.Tune.Time.SetLabel("Time : 0 Sec")
+  Frame.Tune.Title.SetLabel("untitled.wav")
+
 
 
 def Open(Frame):
