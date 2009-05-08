@@ -9,28 +9,37 @@ class ConstructTags(tkSnack.Sound):
         tkSnack.Sound.__init__(self,load=Song)
         self.Length = None
         self.sampling_rate = None
-        self.Stream = None
+#        self.Stream = None
+        self.FragmentFactor = 256
+        self.ByteLength = None
 
     def load(self,Song):
         self.read(Song)
-        self.configure(channels=1)#, frequency=22050, fileformat='WAV', encoding='Lin8')
+        self.configure(channels=1, fileformat='WAV', encoding='Lin8')#, frequency=22050)
+        self.ByteLength = 1
         self.Length = self.length(unit="SAMPLES")
         self.sampling_rate = self.cget("frequency")
-        self.write("temp.wav")
-        Temp = wave.open("temp.wav","rb")
-        self.Stream = Temp.readframes(self.Length)
-        Temp.close()
-        os.remove("temp.wav")
+        self.write(".temp.wav")
+#        Temp = wave.open(".temp.wav","rb")
+#        self.Stream = Temp.readframes(self.Length)
+#        Temp.close()
+#        os.remove(".temp.wav")
 
     def get_minmax_tag(self):
         min_list = []
         max_list = []
         i = 0
-        while i <= self.Length :
-            min_val, max_val = Audio.minmax(self.Stream[i:i+256], 1)
+        Song = wave.open(".temp.wav","rb")
+        NumStream = Song.getnframes()
+        BufferLen = NumStream / self.FragmentFactor
+        Stream = Song.readframes(BufferLen)
+        while len(Stream):
+            min_val, max_val = Audio.minmax(Stream, self.ByteLength)
             min_list.append(min_val)
             max_list.append(max_val)
-            i += 256
+            Stream = Song.readframes(BufferLen)
+        Song.close()
+        os.remove(".temp.wav")
         return min_list, max_list
 
     def get_tags(self):
@@ -52,4 +61,5 @@ def main(path):
         Tags.append({"Name":Song_Name, "Path":Song_Path, "Slope":Slope, "MaxList":max_list, "MinList":min_list})
 
 #    print len(Tags)
+    del(root)
     return Tags
