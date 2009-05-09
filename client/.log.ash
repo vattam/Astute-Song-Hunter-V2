@@ -3,8 +3,8 @@ Vgoogle
 p1
 Vdadadasd
 p2
-sS'localhost'
+sVlocalhost
 p3
-S'http://localhost/'
+Vhttp://localhost:8000/
 p4
 s.
