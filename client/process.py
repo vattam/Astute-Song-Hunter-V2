@@ -8,7 +8,7 @@ class Tag:
     self.Min_List = []
     self.Slope = None
     self.Sound = Sound
-    self.Sound.configure(channels=1, fileformat='WAV', encoding='Lin8')
+#    self.Sound.configure(channels=1, fileformat='WAV', encoding='Lin8')
     self.FragmentFactor = 256
 
   def calculate_max_min(self):
