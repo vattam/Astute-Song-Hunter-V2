@@ -3,7 +3,7 @@ from django.shortcuts import render_to_response, get_object_or_404
 
 from server.returnsongs.models import SongTag, TagsMinList, TagsMaxList
 from server.returnsongs.all import main
-from server.returnsongs.search import SearchTune
+from server.returnsongs.search import SongTune
 
 # Create your views here.
 def bulk_add_tags(request):
@@ -24,25 +24,28 @@ def tags_added(request):
         for max_value in tag['MaxList']:
             tag_db.tagsmaxlist_set.create(max_value=max_value)
         
-        for min_list in tag['MinList']:
+        for min_value in tag['MinList']:
             tag_db.tagsminlist_set.create(min_value=min_value)
 
-    return HttpResponse(len(tag_data))
+    return HttpResponse(str(len(tag_data[0]['MaxList']))+"\n" +str(len(tag_data[0]['MinList'])))
+
 
 def retrievesongs(request):
-    hum_slope = request.POST['Slope']
-    hum_maxvar = request.POST['MaxVar']
-    hum_minvar = request.POST['MinVar']
+    hum_slope = float(request.POST['Slope'])
+    hum_maxvar = [int(i) for i in request.POST['MaxVar'][1:-1].split(',')]
+    hum_minvar = [int(i) for i in request.POST['MinVar'][1:-1].split(',')]
+    
+    Response = ""
     
     stune = SongTune(hum_slope, hum_maxvar, hum_minvar)
     
-    selected_songs = []
+    selected_songs = {}
     
     stags = SongTag.objects.all()
     for stag in stags:
-        if stune.SearchByRegression(stag.Slope) and stune.FindMaxMin(
-          stune.getTagsMaxList(), stune.getTagsMinList()):
-            selected_songs.append((stag.name, stag.path))
-
+        if stune.SearchByRegression(stag.slope):
+         #and stune.FindMaxMin(stag.getTagsMaxList(), stag.getTagsMinList()):
+            selected_songs.append[stag.name] = stag.path
+            Response += "\nIn"
     
     return HttpResponse(selected_songs)
