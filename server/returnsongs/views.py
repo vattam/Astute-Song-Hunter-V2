@@ -35,15 +35,14 @@ def retrievesongs(request):
     hum_maxvar = [int(i) for i in request.POST['MaxVar'][1:-1].split(',')]
     hum_minvar = [int(i) for i in request.POST['MinVar'][1:-1].split(',')]
     
-    
     stune = SongTune(hum_slope, hum_maxvar, hum_minvar)
     
-    selected_songs = {}
+    selected_songs = []
     
     stags = SongTag.objects.all()
     for stag in stags:
         if stune.SearchByRegression(stag.slope):
          #and stune.FindMaxMin(stag.getTagsMaxList(), stag.getTagsMinList()):
-            selected_songs[stag.name] = stag.path
+            selected_songs.append((stag.name,stag.path))
     
     return HttpResponse(selected_songs)
