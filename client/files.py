@@ -15,7 +15,8 @@ def OnNew(Frame):
   Frame.Tune.SnackSound.flush()
   Frame.Tune.Time.SetLabel("Time : 0 Sec")
   Frame.Tune.Title.SetLabel("untitled.wav")
-
+  Img = wx.Image('icons/wave.jpg', wx.BITMAP_TYPE_ANY)
+  Frame.Tune.Waveform.SetBitmap(Img.ConvertToBitmap())
 
 
 def Open(Frame):
@@ -26,7 +27,7 @@ def Open(Frame):
   Frame.Tune.Title.SetLabel(F.split("/")[-1])
   Time = "Time : " + str(Frame.Tune.SnackSound.length(unit="SECONDS")) + "Sec"
   Frame.Tune.Time.SetLabel(Time)
-
+  Frame.Tune.DrawGraph()
 
 
 def OpenFile(Frame):

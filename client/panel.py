@@ -10,15 +10,25 @@ class TunePanel(wx.StaticBoxSizer) :
     wx.StaticBoxSizer.__init__(self,wx.StaticBox(Panel, -1, label='Tune'), wx.VERTICAL)
     self.Time = wx.StaticText(Panel, label="Time : 0 Sec")
     self.Title = wx.StaticText(Panel, size=(250,20), label="untitled.wav", style=wx.ALIGN_CENTER)
-    Img = wx.Image('icons/wave.png',wx.BITMAP_TYPE_PNG)
-    self.Waveform = wx.StaticBitmap(Panel, -1, Img.ConvertToBitmap())
+    Img = wx.Image('icons/wave.jpg', wx.BITMAP_TYPE_ANY)
+    self.Waveform = wx.StaticBitmap(Panel, -1, Img.ConvertToBitmap(), size=(270,200))
     self.Add(self.Time, 0, wx.ALL, border=5)
-    self.Add(self.Waveform, 0, wx.ALL, border=5)
+    self.Add(self.Waveform, 0, wx.ALL, border=1)
     self.Add(self.Title, 0, wx.BOTTOM, border=5)
     self.TuneName = None
     self.TkRoot = Tkinter.Tk()
     tkSnack.initializeSnack(self.TkRoot)
     self.SnackSound = tkSnack.Sound()
+  
+  def DrawGraph(self):
+    import graph
+    Canvas = tkSnack.SnackCanvas(height=100, width=400)
+    Canvas.create_waveform(0, 0, sound=self.SnackSound, width=400)
+    Canvas.postscript(file=".image.ps", pageheight=100, pagewidth=400, height=100, width=400)
+    graph.GetGraph()
+    Img = wx.Image('.wave.jpg', wx.BITMAP_TYPE_ANY)
+    self.Waveform.SetBitmap(Img.ConvertToBitmap())
+
 
 
 class SongPanel(wx.StaticBoxSizer):
@@ -87,7 +97,7 @@ class SearchPanel(wx.StaticBoxSizer):
     T.calculate_max_min()
     Songs = search.GetSongs(T,ServerUrl)
     if Songs == -1:
-      DisplayError("Cannot connect to server - \n"+ServerUrl)
+      self.DisplayError("Cannot connect to server - \n"+ServerUrl)
       del(T)
       return
     if len(Songs) != 0:
