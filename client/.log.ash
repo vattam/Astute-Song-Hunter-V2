@@ -1,10 +1,6 @@
 (dp0
-Vgoogle
+Vlocalhost
 p1
-Vdadadasd
-p2
-sVlocalhost
-p3
 Vhttp://localhost:8000/
-p4
+p2
 s.

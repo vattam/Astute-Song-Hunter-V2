@@ -75,33 +75,39 @@ def Save(Frame):
 def SaveSong(Frame):
   global DirName
   SongIndex = Frame.Song.SongList.GetSelections()[0]
-  FileName = Frame.Song.Songs.keys()[SongIndex]
-  Format = FileName.split(".")[-1]
+  SongName = Frame.Song.Songs.keys()[SongIndex]
+  Format = SongName.split(".")[-1]
   Directory = DirName
+  FileName = SongName
   SaveDialog = wx.FileDialog(Frame, "Save the song file", DirName, FileName, "*.*", wx.SAVE | wx.OVERWRITE_PROMPT)
   if SaveDialog.ShowModal() == wx.ID_OK:
     Directory = SaveDialog.GetDirectory()
     FileName = SaveDialog.GetFilename()
     if FileName.split(".")[-1] != Format:
       FileName = FileName + "." + Format
-    SaveBinary(Directory, FileName, Frame)
+    SaveBinary(Directory, FileName, Frame, SongName)
   SaveDialog.Destroy()
 
 
-def SaveBinary (Directory, FileName, Frame):
+def SaveBinary (Directory, FileName, Frame, SongName):
   import urllib
-  SongPath = "file:///home/puneeth/astute-song-hunter/client/saves/nin_2.wav"
+  SongPath = Frame.Song.Songs[SongName]
+  ServerUrl = Frame.Search.LastSearchServer + "songs/"
+  RequestUrl = ServerUrl+SongPath
+  print RequestUrl
   try :
     SongFile = open(Directory+"/"+FileName, "wb")
   except IOError:
     DisplayError("File cannnot be open!")
     return
   try:
-    Song = urllib.urlopen(SongPath)
+    Song = urllib.urlopen(ServerUrl+SongPath)
   except IOError:
     DisplayError("Invalid Server Path!")
     return
-  SongFile.writelines(Song.read())
+  a = Song.read()
+#  print a
+  SongFile.writelines(a)
   SongFile.close()
   Dialog = wx.MessageDialog(None, "Song saved successfully at\n"+Directory, 'Songs Saved', wx.OK | wx.ICON_INFORMATION)
   Dialog.ShowModal()

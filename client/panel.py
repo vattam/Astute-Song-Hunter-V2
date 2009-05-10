@@ -47,6 +47,7 @@ class SearchPanel(wx.StaticBoxSizer):
   def __init__ (self,Frame,Panel):
     wx.StaticBoxSizer.__init__(self, wx.StaticBox(Panel, -1, label='Search Server'))
     self.ASH_Frame = Frame
+    self.LastSearchServer = None
     List = self.GetList().keys()
     self.ServerList = wx.ComboBox(Panel, value=List[0], size=(150,10), choices=List, style=wx.CB_DROPDOWN)
     self.Search = wx.Button(Panel, label="Search", style=wx.BU_EXACTFIT)
@@ -77,8 +78,10 @@ class SearchPanel(wx.StaticBoxSizer):
       DisplayError("Cannot connect to server - \n"+ServerUrl)
       del(T)
       return
-    self.ASH_Frame.Song.SongList.Set(Songs.keys())
-    self.ASH_Frame.Song.Songs = Songs
+    if len(Songs) != 0:
+      self.ASH_Frame.Song.SongList.Set(Songs.keys())
+      self.ASH_Frame.Song.Songs = Songs
+    self.LastSearchServer = ServerUrl
     del(T)
 
   def DisplayError(ErrorMessage):
