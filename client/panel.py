@@ -23,7 +23,10 @@ class TunePanel(wx.StaticBoxSizer) :
   def DrawGraph(self):
     import graph
     Canvas = tkSnack.SnackCanvas(height=100, width=400)
-    Canvas.create_waveform(0, 0, sound=self.SnackSound, width=400)
+    try:
+      Canvas.create_waveform(0, 0, sound=self.SnackSound, width=400)
+    except :
+      return -1
     Canvas.postscript(file=".image.ps", pageheight=100, pagewidth=400, height=100, width=400)
     graph.GetGraph()
     Img = wx.Image('.wave.jpg', wx.BITMAP_TYPE_ANY)
@@ -106,6 +109,6 @@ class SearchPanel(wx.StaticBoxSizer):
     self.LastSearchServer = ServerUrl
     del(T)
 
-  def DisplayError(ErrorMessage):
+  def DisplayError(self,ErrorMessage):
     Dialog = wx.MessageDialog(None, ErrorMessage, 'Error!', wx.OK | wx.ICON_ERROR)
     Dialog.ShowModal()

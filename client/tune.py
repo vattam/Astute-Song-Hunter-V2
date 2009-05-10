@@ -6,6 +6,7 @@ ASH_Frame = None
 def recorder (Frame):
   global ASH_Frame
   ASH_Frame = Frame
+  ASH_Frame.Tune.TkRoot.geometry("+100+100")
   Wave = SnackCanvas(height=200, width=200)
   Wave.pack()
   Wave.create_section(0, 0, sound=Frame.Tune.SnackSound, height=200, width=200)
@@ -20,5 +21,5 @@ def record():
 def stop():
   global ASH_Frame
   ASH_Frame.Tune.SnackSound.stop()
+  ASH_Frame.Tune.SnackSound.write("saves/.temp.wav")
   ASH_Frame.Tune.TkRoot.destroy()
-  ASH_Frame.Tune.TkRoot = Tkinter.root()

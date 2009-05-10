@@ -52,9 +52,14 @@ class Toolbar(wx.ToolBar):
 
 
   def OnRecord(self,event):
-    """Under construction"""
-#    import tune
-#    tune.recorder(self.ASH_Frame)
+    import tune, Tkinter, tkSnack
+    tune.recorder(self.ASH_Frame)
+    self.ASH_Frame.Tune.TuneName = "saves/.temp.wav"
+    self.ASH_Frame.Tune.TkRoot = Tkinter.Tk()
+    tkSnack.initializeSnack(self.ASH_Frame.Tune.TkRoot)
+    Time = "Time : " + str(self.ASH_Frame.Tune.SnackSound.length(unit="SECONDS")) + "Sec"
+    self.ASH_Frame.Tune.Time.SetLabel(Time)
+    self.ASH_Frame.Tune.DrawGraph()
 
 
   def OnSaveSong(self, event):
