@@ -37,10 +37,22 @@ class SongPanel(wx.StaticBoxSizer):
       if Player != None:
         Player.Stop()
         Player = None
+      
       SongIndex = self.SongList.GetSelections()[0]
       SongName = self.Songs.keys()[SongIndex]
       SongPath = self.Songs[SongName]
-      print "Playing Song : ",SongName
+      ServerUrl = self.ASH_Frame.Search.LastSearchServer + "songs/"
+      RequestUrl = ServerUrl+SongPath
+      SongFile = open("saves/.temp.wav", "wb")
+      
+      import urllib
+      Song = urllib.urlopen(ServerUrl+SongPath)
+      SongFile.writelines(Song.read())
+      SongFile.close()
+      
+      Player = wx.Sound("saves/.temp.wav")
+      Player.Play()
+      print "Playing Song : ", RequestUrl
 
 
 class SearchPanel(wx.StaticBoxSizer):
