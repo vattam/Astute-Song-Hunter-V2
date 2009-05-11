@@ -70,7 +70,7 @@ def Save(Frame):
   else:
     F = DirName+"/"+FileName+".wav"
   Frame.Tune.SnackSound.write(F,fileformat="wav")
-  Frame.Tune.Title.SetLabel(F.split("/")[-1])
+  Frame.Tune.Title.SetLabel(FileName)
 
 
 def SaveSong(Frame):
