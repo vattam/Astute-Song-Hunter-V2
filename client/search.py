@@ -17,11 +17,11 @@ def GetSongs(T, ServerName):
   f = open("some.html","w")
   f.writelines(Data)
   f.close()
-#  print Data
   
   SongList = {}
-  for S in Data[1:-1].split(")("):
-    Song, Path = tuple(S.split(","))
-    SongList[Song[2:-1]] = Path[3:-1]
+  if Data:
+      for S in Data[1:-1].split(")("):
+          Song, Path = tuple(S.split(","))
+          SongList[Song[2:-1]] = Path[3:-1]
   
   return SongList

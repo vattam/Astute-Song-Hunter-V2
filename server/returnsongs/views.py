@@ -42,7 +42,7 @@ def retrievesongs(request):
     stags = SongTag.objects.all()
     for stag in stags:
         if stune.SearchByRegression(stag.slope):
-         #and stune.FindMaxMin(stag.getTagsMaxList(), stag.getTagsMinList()):
-            selected_songs.append((stag.name,stag.path))
+            if stune.FindMaxMin(stag.getTagsMaxList(), stag.getTagsMinList()):
+                selected_songs.append((stag.name,stag.path))
     
     return HttpResponse(selected_songs)
