@@ -21,5 +21,9 @@ urlpatterns = patterns('',
     (r'^ash/retrievesongs/$', 'server.returnsongs.views.retrievesongs'),
     (r'^songs/(?P<path>.*)$', 'django.views.static.serve', 
         {'document_root': settings.STATIC_DOC_ROOT}),
+    (r'^mymedia/(?P<path>.*)', 'django.views.static.serve',
+        {'document_root': settings.MEDIA_ROOT}),
+
+
 
 )

@@ -35,15 +35,15 @@ USE_I18N = True
 
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
-MEDIA_ROOT = ''
+MEDIA_ROOT = '/media/netfs/hp-paper/astute-song-hunter-code/server/returnsongs/templates/returnsongs/'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
-MEDIA_URL = ''
+MEDIA_URL = '/mymedia/'
 
 # Document root to serve static binary files
-STATIC_DOC_ROOT = '/media/netfs/hp-paper'
+STATIC_DOC_ROOT = '/'
 
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
