@@ -23,10 +23,10 @@ class TunePanel(wx.StaticBoxSizer) :
   def DrawGraph(self):
     import graph
     Canvas = tkSnack.SnackCanvas(height=100, width=400)
-    try:
-      Canvas.create_waveform(0, 0, sound=self.SnackSound, width=400)
-    except :
-      return -1
+#    try:
+    Canvas.create_waveform(0, 0, sound=self.SnackSound, width=400)
+#    except :
+#      return -1
     Canvas.postscript(file=".image.ps", pageheight=100, pagewidth=400, height=100, width=400)
     graph.GetGraph()
     Img = wx.Image('.wave.jpg', wx.BITMAP_TYPE_ANY)
@@ -42,7 +42,7 @@ class SongPanel(wx.StaticBoxSizer):
     self.Add(self.SongList, 0, wx.ALL, border=10)
     self.Songs = None
     self.SongList.Bind (wx.EVT_LISTBOX_DCLICK, self.PlaySong)
-#    wx.EVT_COMMAND_LISTBOX_DCLICKED(1, self.PlaySong)
+  
   
   def PlaySong(self, event):
     if self.Songs != None:
@@ -67,6 +67,8 @@ class SongPanel(wx.StaticBoxSizer):
       player.play(self.ASH_Frame)
       self.ASH_Frame.Tune.TkRoot = Tkinter.Tk()
       tkSnack.initializeSnack(self.ASH_Frame.Tune.TkRoot)
+      self.ASH_Frame.Tune.SnackSound.write(".tempfile.wav")
+      self.ASH_Frame.Tune.SnackSound = tkSnack.Sound(load=".tempfile.wav")
 
 
 

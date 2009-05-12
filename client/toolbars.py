@@ -54,12 +54,22 @@ class Toolbar(wx.ToolBar):
   def OnRecord(self,event):
     import tune, Tkinter, tkSnack
     tune.recorder(self.ASH_Frame)
-    self.ASH_Frame.Tune.TuneName = "saves/.temp.wav"
     self.ASH_Frame.Tune.TkRoot = Tkinter.Tk()
     tkSnack.initializeSnack(self.ASH_Frame.Tune.TkRoot)
-    Time = "Time : " + str(self.ASH_Frame.Tune.SnackSound.length(unit="SECONDS")) + "Sec"
-    self.ASH_Frame.Tune.Time.SetLabel(Time)
-    self.ASH_Frame.Tune.DrawGraph()
+    self.ASH_Frame.Tune.SnackSound.write(".tempfile.wav")
+    self.ASH_Frame.Tune.SnackSound = tkSnack.Sound(load=".tempfile.wav")
+    if tune.IS_RECORDED:
+      self.ASH_Frame.Tune.TuneName = "saves/.temp.wav"
+      self.ASH_Frame.Tune.SnackSound.read("saves/.temp.wav")
+      T = self.ASH_Frame.Tune.SnackSound.length(unit="SECONDS")
+      if T < 10 :
+        Time = "Tune too short!"
+      elif T > 20 :
+        Time = "Tune too long!"
+      else:
+        Time = "Time : " + str() + "Sec"
+      self.ASH_Frame.Tune.Time.SetLabel(Time)
+      self.ASH_Frame.Tune.DrawGraph()
 
 
   def OnSaveSong(self, event):
