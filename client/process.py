@@ -18,6 +18,8 @@ class Tag:
     BufferLen = Length / self.FragmentFactor
     Stream = S.readframes(BufferLen)
     while len(Stream) :
+      Stream = audioop.lin2lin(Stream,2,1)
+      Stream = audioop.tomono(Stream,1,1,-1)
       min_val, max_val = audioop.minmax(Stream, 1)
       self.Min_List.append(min_val)
       self.Max_List.append(max_val)
