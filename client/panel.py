@@ -63,9 +63,11 @@ class SongPanel(wx.StaticBoxSizer):
       SongFile.writelines(Song.read())
       SongFile.close()
       
-      Player = wx.Sound("saves/.temp.wav")
-      Player.Play()
-      print "Playing Song : ", RequestUrl
+      import player
+      player.play(self.ASH_Frame)
+      self.ASH_Frame.Tune.TkRoot = Tkinter.Tk()
+      tkSnack.initializeSnack(self.ASH_Frame.Tune.TkRoot)
+
 
 
 class SearchPanel(wx.StaticBoxSizer):

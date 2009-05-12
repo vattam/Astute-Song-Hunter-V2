@@ -7,9 +7,9 @@ def recorder (Frame):
   global ASH_Frame
   ASH_Frame = Frame
   ASH_Frame.Tune.TkRoot.geometry("+100+100")
-  Wave = SnackCanvas(height=200, width=200)
+  Wave = SnackCanvas(height=200, width=400)
   Wave.pack()
-  Wave.create_section(0, 0, sound=Frame.Tune.SnackSound, height=200, width=200)
+  Wave.create_waveform(0, 0, sound=Frame.Tune.SnackSound, height=200, width=400)
   Tkinter.Button(Frame.Tune.TkRoot, bitmap='snackStop', command=stop).pack(side='left')
   Tkinter.Button(Frame.Tune.TkRoot, bitmap='snackRecord', fg='red', command=record).pack(side='right')
   ASH_Frame.Tune.TkRoot.mainloop()
