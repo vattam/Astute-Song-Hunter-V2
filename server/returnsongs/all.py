@@ -15,7 +15,7 @@ class ConstructTags(tkSnack.Sound):
 
     def load(self,Song):
         self.read(Song)
-        self.configure(channels=1, fileformat='WAV', encoding='Lin8')#, frequency=22050)
+#        self.configure(channels=1, fileformat='WAV')#, encoding='Lin8')#, frequency=22050)
         self.ByteLength = 1
         self.Length = self.length(unit="SAMPLES")
         self.sampling_rate = self.cget("frequency")
@@ -33,6 +33,8 @@ class ConstructTags(tkSnack.Sound):
         BufferLen = NumStream / self.FragmentFactor
         Stream = Song.readframes(BufferLen)
         while len(Stream):
+            Stream = Audio.lin2lin(Stream,2,1)
+            Stream = Audio.tomono(Stream,1,1,-1)
             min_val, max_val = Audio.minmax(Stream, self.ByteLength)
             min_list.append(min_val)
             max_list.append(max_val)

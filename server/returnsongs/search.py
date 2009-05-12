@@ -3,7 +3,7 @@ import math
 class SongTune :
   def __init__(self, Slope, MaxList, MinList):
     self.MinSlopeThreshold = 3e-03
-    self.MaxMinThreshold = 10
+    self.MaxMinThreshold = 5
     self.Slope = Slope
     self.MaxList = MaxList
     self.MinList = MinList
@@ -29,6 +29,7 @@ class SongTune :
   def FindMaxMin(self,Maxima,Minima):
     a = self.CalculateRMS(Maxima,self.MaxList)
     b = self.CalculateRMS(Minima,self.MinList)
+    print a,b
     if int(abs(a-b)*(10**5)) < self.MaxMinThreshold:
       return True
     return False
