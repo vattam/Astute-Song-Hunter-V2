@@ -3,10 +3,50 @@
 <title>
 {% block title %}{% endblock title %}
 </title>
-{% block scripts %}{% endblock scripts %}
+{% block scripts %}
+<link rel="stylesheet" type="text/css" href="/mymedia/css/style.css" media="all"/> 
+{% endblock scripts %}
 </head>
 </body>
-{% block body %}{% endblock body %}
+{% block body %}
+<div id="wrapper">
+	<div id="header">
+		<div id="logo">
+		</div>
+		<div id="search">
+		</div>
+	</div>
+	<!-- end #header -->
+	<div id="menu">
+		<ul>
+			<li class="current_page_item"><a href="#">Astute Song Hunter</a></li>
+		</ul>
+	</div>
+	<!-- end #menu -->
+	<div id="page">
+	<div id="page-bgtop">
+	<div id="page-bgbtm">
+	  {% block content %}{% endblock %}
+		<div id="sidebar">
+			<ul>
+				<li>
+					<h2>About Astute Song Hunter</h2>
+					<p>(Vattam TODO) Write something about Astute Song Hunter.</p>
+				</li>
+			</ul>
+		</div>
+		<!-- end #sidebar -->
+		<div style="clear: both;">&nbsp;</div>
+	</div>
+	</div>
+	</div>
+	<!-- end #page -->
+</div>
+	<div id="footer">
+		<p>Copyright (c) 2009 Puneeth Bhat.A.H, Santosh G. Vattam and Madhusudan.C.S. All rights reserved.</p>
+	</div>
+	<!-- end #footer -->
+{% endblock body %}
 </body>
 </html>
 

@@ -26,8 +26,11 @@ def tags_added(request):
         
         for min_value in tag['MinList']:
             tag_db.tagsminlist_set.create(min_value=min_value)
+    
+    nsongs = len(tag_data)
+#    return HttpResponse()
+    return render_to_response('returnsongs/tagsadded.html', {'num_songs': nsongs})
 
-    return HttpResponse(str(len(tag_data[0]['MaxList']))+"\n" +str(len(tag_data[0]['MinList'])))
 
 
 def retrievesongs(request):
