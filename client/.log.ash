@@ -1,6 +1,10 @@
 (dp0
-Vlocalhost
+Vcollege
 p1
-Vhttp://localhost:8000/
+Vhttp://172.23.0.98:8000/
 p2
+sVlocalhost
+p3
+Vhttp://localhost:8000/
+p4
 s.

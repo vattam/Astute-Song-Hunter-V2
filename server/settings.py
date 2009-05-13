@@ -10,7 +10,7 @@ ADMINS = (
 MANAGERS = ADMINS
 
 DATABASE_ENGINE = 'sqlite3'           # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-DATABASE_NAME = '/media/netfs/hp-paper/dbfile'             # Or path to database file if using sqlite3.
+DATABASE_NAME = '/media/disk/HP Innovate/dbfile'             # Or path to database file if using sqlite3.
 DATABASE_USER = ''             # Not used with sqlite3.
 DATABASE_PASSWORD = ''         # Not used with sqlite3.
 DATABASE_HOST = ''             # Set to empty string for localhost. Not used with sqlite3.
@@ -35,7 +35,7 @@ USE_I18N = True
 
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
-MEDIA_ROOT = '/media/netfs/hp-paper/astute-song-hunter-code/server/returnsongs/templates/returnsongs/'
+MEDIA_ROOT = '/media/disk/HP_Innovate/astute-song-hunter/server/returnsongs/templates/returnsongs/'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).

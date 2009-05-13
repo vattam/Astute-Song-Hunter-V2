@@ -27,11 +27,11 @@ class MainFrame(wx.Frame):
     self.MainPanel.SetSizer(HBox)
     self.Centre()
 #    self.Maximize(True)
-    self.Show(True)
+#    self.Show(True)
 
 
 ASH = wx.App()
 ASH_Frame = MainFrame()
-#Splash = SplashScreen(ASH_Frame)
+Splash = SplashScreen(ASH_Frame)
 ASH.MainLoop()
 
